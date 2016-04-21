@@ -1,7 +1,7 @@
 development:
   clients:
     default:
-      database: bot-server_development
+      database: bot-server_development-dailyitsof
       hosts:
         - 127.0.0.1:27017
   options:
