@@ -8,7 +8,7 @@ module SlackBotServer
       	categories = Dailybitsof.categories
 
       	message = {
-          channel: data.user,
+          channel: data.channel,
           as_user: true,
           mrkdwn: true,
           attachments: []

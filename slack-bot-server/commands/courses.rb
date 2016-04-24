@@ -9,7 +9,7 @@ module SlackBotServer
       	courses = Dailybitsof.courses(match['slug'])
 
       	message = {
-          channel: data.user,
+          channel: data.channel,
           as_user: true,
           mrkdwn: true,
           attachments: []
@@ -19,7 +19,7 @@ module SlackBotServer
         attachment = {
             title_link: "https://dailybitsof.com/courses/#{course['slug']}",
             title: "#{course['title']}",
-            text: "#{course['description']}"
+            text: "#{ Sanitize.clean(course['description'])}"
           }
         
         message[:attachments] << attachment

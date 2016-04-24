@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 ruby '2.2.4'
-
+gem 'sanitize'
 gem 'slack-ruby-bot', '~> 0.7.0'
 gem 'mongoid', '~> 5.0.0'
 gem 'unicorn'
