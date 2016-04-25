@@ -17,9 +17,8 @@ gem 'newrelic-slack-ruby-bot'
 gem 'rack-rewrite'
 gem 'rack-server-pages'
 
-require 'httparty'
-require 'json'
-require 'uri'
+gem 'httparty'
+gem 'json'
 
 group :development, :test do
   gem 'rake', '~> 10.4'

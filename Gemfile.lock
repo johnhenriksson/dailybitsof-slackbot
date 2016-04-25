@@ -117,6 +117,9 @@ GEM
     heroku-api (0.4.2)
       excon (~> 0.45)
       multi_json (~> 1.8)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     hyperclient (0.8.1)
       faraday
       faraday-digestauth
@@ -296,7 +299,9 @@ DEPENDENCIES
   grape-roar
   grape-swagger (~> 0.10.0)
   heroku
+  httparty
   hyperclient
+  json
   kaminari (~> 0.16.1)
   mongoid (~> 5.0.0)
   mongoid-scroll
