@@ -3,10 +3,10 @@ module SlackBotServer
     class Courses < SlackRubyBot::Commands::Base
       require_relative '../lib/dailybitsof'
       
-      match /^courses (?<slug>\w*-\w*)$/ do |client, data, match|
+      match /^Show me the (?<limit>\d*) latest courses in (?<slug>\w*-\w*)$/ do |client, data, match|
 
 #        client.say(channel: data.channel, text: "#{match['slug']}")
-      	courses = Dailybitsof.courses(match['slug'])
+      	courses = Dailybitsof.courses(match['slug'], match['limit'])
 
       	message = {
           channel: data.channel,
@@ -17,6 +17,7 @@ module SlackBotServer
         
        courses.each do |course|
         attachment = {
+            thumb_url: "#{course['image_url']}",
             title_link: "https://dailybitsof.com/courses/#{course['slug']}",
             title: "#{course['title']}",
             text: "#{ Sanitize.clean(course['description'])}"

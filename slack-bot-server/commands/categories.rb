@@ -3,7 +3,7 @@ module SlackBotServer
     class Categories < SlackRubyBot::Commands::Base
       require_relative '../lib/dailybitsof'
       
-      def self.call(client, data, _match)
+      match /^Show me the categories$/ do |client, data, match|
 
       	categories = Dailybitsof.categories
 
