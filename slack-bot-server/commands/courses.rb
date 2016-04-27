@@ -29,7 +29,7 @@ module SlackBotServer
         attachment = {
             mrkdwn: true,
             mrkdwn_in: ["text"],
-            text: "Start this course with the command `Start the #{course['slug']} course`"
+            text: "Start this course with the command `Start the course #{course['slug']}`"
           }
         
         message[:attachments] << attachment
@@ -40,6 +40,7 @@ module SlackBotServer
         #client.web_client.im_open(message)
 
       end
+
     end
   end
 end
