@@ -8,19 +8,25 @@ class Dailybitsof
 	end
 
 	def self.courses(category, limit)
-        response = HTTParty.get("https://dailybitsof.com/api/courses?category=#{category}&limit=#{limit}")
+        response = HTTParty.get("https://dailybitsof.com/api/courses?category=#{category}&limit=#{limit}&order=recent&language=en")
         data = JSON.parse(response.body)
 
 		return data
 	end
 
-	def self.create_subscription(team_id, channel_id, course_slug)
-		dbo_id = "#{team_id}-#{channel_id}-slackbot"
+	def self.course(channel_id)
+		subscription = Subscription.where(:channel_id => channel_id)
 
-		Subscription.create!(:dbo_id => dbo_id ) do |sub|
-			sub.team_id = team_id
-			sub.channel_id = channel_id
-		end
+		response = HTTParty.get("https://dailybitsof.com/api/users/#{subscription.dbo_id}/todays_lessons?access_token=#{ENV['DBO_ACCESS_TOKEN']}")
+		data = JSON.parse(response.body)
+
+		return data
+	end
+
+	def self.create_subscription(channel_id, course_slug)
+		dbo_id = "#{channel_id}-slackbot"
+
+		Subscription.create(:dbo_id => dbo_id, :channel_id => channel_id)
 
 		query = {'subscription' => { 'username' => dbo_id }, 'access_token' => ENV['DBO_ACCESS_TOKEN']}
 		headers = { 'Content-Type' => 'application/json' }
