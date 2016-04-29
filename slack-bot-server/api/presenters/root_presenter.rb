@@ -13,6 +13,10 @@ module Api
         "#{base_url(opts)}/api/status"
       end
 
+      link :status do |opts|
+        "#{base_url(opts)}/api/subscription"
+      end
+
       link :teams do |opts|
         {
           href: "#{base_url(opts)}/api/teams/#{link_params(Api::Helpers::PaginationParameters::ALL, :active)}",

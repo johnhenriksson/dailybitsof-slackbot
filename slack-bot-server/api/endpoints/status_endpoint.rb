@@ -6,7 +6,7 @@ module Api
       namespace :status do
         desc 'Get system status.'
         get do
-          present self, with: Api::Presenters::StatusPresenter
+         present self, with: Api::Presenters::StatusPresenter
         end
       end
     end

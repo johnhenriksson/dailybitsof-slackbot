@@ -12,6 +12,8 @@ class Team
 
   scope :active, -> { where(active: true) }
 
+  has_many :subscriptions
+
   validates_uniqueness_of :token, message: 'has already been used'
   validates_presence_of :token
   validates_presence_of :team_id

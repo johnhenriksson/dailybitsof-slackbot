@@ -6,6 +6,11 @@ module Api
       helpers Api::Helpers::SortHelpers
       helpers Api::Helpers::PaginationParameters
 
+      namespace :team_subscription do
+        post do
+          'Hello World'
+        end
+      end
       namespace :teams do
         desc 'Get a team.'
         params do
