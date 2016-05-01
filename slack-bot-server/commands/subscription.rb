@@ -4,43 +4,46 @@ module SlackBotServer
       require_relative '../lib/dailybitsof'
 
       match /^Start the course (?<slug>\S+)$/i do |client, data, match|
-        subscription = Dailybitsof.create(data.channel, match['slug'])
 
-        if true
-        # 	course = Dailybitsof.courses(match['slug'], match['limit'])
+        subscription = Dailybitsof.create(data.channel, match['slug'], client.token)
 
-	      	# message = {
-	       #    channel: data.channel,
-	       #    as_user: true,
-	       #    mrkdwn: true,
-	       #    attachments: []
-	       #  }
+   #      if subscription
+   #      	course = Dailybitsof.course(match['slug'])
+
+   #      	first_lesson_as_message = course['first_post']['content'].gsub!(/<br\s*[\/]?>/i, "\n\n").gsub!(/<p\s*[\/]?>/i, "\n\n")
+
+	  #     	message = {
+	  #         channel: data.channel,
+	  #         as_user: true,
+	  #         mrkdwn: true,
+	  #         attachments: []
+	  #       }
+
+			# attachment = {
+			# 	mrkdwn: true,
+   #          	mrkdwn_in: ["text"],
+			# 	color: "good",
+			# 	text: "Thanks for signing up! Here's the first lesson. We'll send you daily lessons for the course *#{course['title']}* in this channel."
+			#   }
+
+			# message[:attachments] << attachment
+
+	  #       attachment = {
+	  #           color: "#82c6dc",
+	  #           thumb_url: "#{course['image_url']}",
+	  #           title_link: "#{course['first_post']['url']}",
+	  #           title: "#{course['first_post']['title']}",
+	  #           text: "#{ Sanitize.clean(first_lesson_as_message)}"
+	  #         }
 	        
-	       # courses.each do |course|
-	       #  attachment = {
-	       #      color: "#82c6dc",
-	       #      thumb_url: "#{course['image_url']}",
-	       #      title_link: "https://dailybitsof.com/courses/#{course['slug']}",
-	       #      title: "#{course['title']}",
-	       #      text: "#{ Sanitize.clean(course['description'])}"
-	       #    }
-	        
-	       #  message[:attachments] << attachment
+	  #       message[:attachments] << attachment
 
-	       #  attachment = {
-	       #      mrkdwn: true,
-	       #      mrkdwn_in: ["text"],
-	       #      text: "Start this course with the command `Start the course #{course['slug']}`"
-	       #    }
-	        
-	       #  message[:attachments] << attachment
-        #end
 
-        #client.web_client.chat_postMessage(message)
+   #      client.web_client.chat_postMessage(message)
 
-	    else
-	    	client.say(channel: data.channel, text: "Sorry, something went wrong.")
-	    end
+	  #   else
+	    	client.say(channel: data.channel, text: "#{subscription}")
+	    # end
       end
     end
   end
