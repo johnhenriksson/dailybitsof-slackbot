@@ -7,12 +7,12 @@ class Subscription
   field :dbo_id, type: String
   field :team_id, type: String
   field :channel_id, type: String
-  field :course_slug, type: String
   field :username, type: String
   field :last_delivery_date, type: Date
 
   belongs_to :team
 
+  validates_uniqueness_of :dbo_id
   validates_presence_of :team_id
   validates_presence_of :channel_id
   validates_presence_of :dbo_id
