@@ -7,43 +7,43 @@ module SlackBotServer
 
         subscription = Dailybitsof.create(data.channel, match['slug'], client.token)
 
-   #      if subscription
-   #      	course = Dailybitsof.course(match['slug'])
+        if subscription
+        	course = Dailybitsof.course(match['slug'])
 
-   #      	first_lesson_as_message = course['first_post']['content'].gsub!(/<br\s*[\/]?>/i, "\n\n").gsub!(/<p\s*[\/]?>/i, "\n\n")
+        	first_lesson_as_message = course['first_post']['content'].gsub!(/<br\s*[\/]?>/i, "\n\n").gsub!(/<p\s*[\/]?>/i, "\n\n")
 
-	  #     	message = {
-	  #         channel: data.channel,
-	  #         as_user: true,
-	  #         mrkdwn: true,
-	  #         attachments: []
-	  #       }
+	      	message = {
+	          channel: data.channel,
+	          as_user: true,
+	          mrkdwn: true,
+	          attachments: []
+	        }
 
-			# attachment = {
-			# 	mrkdwn: true,
-   #          	mrkdwn_in: ["text"],
-			# 	color: "good",
-			# 	text: "Thanks for signing up! Here's the first lesson. We'll send you daily lessons for the course *#{course['title']}* in this channel."
-			#   }
+			attachment = {
+				mrkdwn: true,
+            	mrkdwn_in: ["text"],
+				color: "good",
+				text: "Thanks for signing up! Here's the first lesson. We'll send you daily lessons for the course *#{course['title']}* in this channel."
+			  }
 
-			# message[:attachments] << attachment
+			message[:attachments] << attachment
 
-	  #       attachment = {
-	  #           color: "#82c6dc",
-	  #           thumb_url: "#{course['image_url']}",
-	  #           title_link: "#{course['first_post']['url']}",
-	  #           title: "#{course['first_post']['title']}",
-	  #           text: "#{ Sanitize.clean(first_lesson_as_message)}"
-	  #         }
+	        attachment = {
+	            color: "#82c6dc",
+	            thumb_url: "#{course['image_url']}",
+	            title_link: "#{course['first_post']['url']}",
+	            title: "#{course['first_post']['title']}",
+	            text: "#{ Sanitize.clean(first_lesson_as_message)}"
+	          }
 	        
-	  #       message[:attachments] << attachment
+	        message[:attachments] << attachment
 
 
-   #      client.web_client.chat_postMessage(message)
+        client.web_client.chat_postMessage(message)
 
-	  #   else
-	    	client.say(channel: data.channel, text: "#{subscription}")
-	    # end
+	    else
+	    	client.say(channel: data.channel, text: "#{message}")
+	    end
       end
     end
   end

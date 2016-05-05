@@ -50,13 +50,13 @@ class Dailybitsof
 		request = HTTParty.post("#{@api_url}/courses/#{course_slug}/subscriptions", :query => query, :headers => headers)
 		data = JSON.parse(request.body)
 
-		#subscription = Subscription.new(:team_id => team_id, :dbo_id => data['user_id'], :channel_id => channel_id, :username => username, :course_slug => course_slug, :last_delivery_date => data['last_delivery_date'])
+		subscription = Subscription.new(:team_id => team_id, :dbo_id => data['user_id'], :channel_id => channel_id, :username => username, :course_slug => course_slug, :last_delivery_date => data['last_delivery_date'])
 
-		#if subscription.save
-			return data
-		#else
-		#	return false
-		#end
+		if subscription.save
+			return subscription
+		else
+			return false
+		end
 
 	end
 end
