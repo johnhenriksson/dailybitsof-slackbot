@@ -48,7 +48,7 @@ class Dailybitsof
    		response = HTTParty.get("#{@api_url}users/#{dbo_id}/todays_lessons?access_token=9f52830fc2adf8d23aa781d1df361ce1")
    		unless response.code == 404
    			data = JSON.parse(response.body)
-   			if data["last_delivery_date"].to_date > @subscription.last_delivery_date
+   			if data["last_delivery_date"].to_date <= @subscription.last_delivery_date
    				@subscription.update(:last_delivery_date => Date.today)
 		        return data["posts"]
 		    else
@@ -67,7 +67,43 @@ class Dailybitsof
 			data = get_lessons(channel.dbo_id)
 
 			data.each do |data|
-				puts data['title']
+				# puts data
+
+				client = Slack::Web::Client.new(:token => channel.team.token)
+				client.auth_test
+
+				message = {
+		          channel: channel.channel_id,
+		          as_user: true,
+		          mrkdwn: true,
+		          attachments: []
+		        }
+
+    			attachment = {
+				  mrkdwn: true,
+            	  mrkdwn_in: ["text"],
+				  color: "good",
+				  text: "Here's your daily lesson in the course #{data['course']['slug']}"
+			    }
+
+			    message[:attachments] << attachment
+
+			    lesson_as_message = data['content'].gsub!(/<br\s*[\/]?>/i, "\n\n").gsub!(/<p\s*[\/]?>/i, "\n\n")
+
+    	        attachment = {
+	        	  mrkdwn: true,
+            	  mrkdwn_in: ["text"],
+	              color: "#82c6dc",
+	              # thumb_url: "#{data['image_url']}",
+	              title_link: "#{data['url']}",
+	              title: "#{data['title']}",
+	              text: "#{ Sanitize.clean(lesson_as_message)}"
+	            }
+	        
+	        	message[:attachments] << attachment
+
+			    client.chat_postMessage(message)
+
 			end
 		end
 

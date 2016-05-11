@@ -1,2 +1,2 @@
-require 'slack-bot-server/models/team'
-require 'slack-bot-server/models/subscription'
+require './slack-bot-server/models/team'
+require './slack-bot-server/models/subscription'
